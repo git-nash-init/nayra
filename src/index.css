@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-canvas-base: #0a0a0a;
+  --color-canvas-surface: #141414;
+  --color-canvas-elevated: #1a1a1a;
+  --color-accent: #ff4925;
+  --color-accent-hover: #bd2608;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #cacaca;
+  --color-text-muted: #8f8f8f;
+  --color-text-dim: #555555;
+  --color-border-hairline: rgba(255, 255, 255, 0.08);
+}
+
+body {
+  background-color: var(--color-canvas-base);
+  color: var(--color-text-primary);
+  font-family: 'Geist', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  letter-spacing: -0.015em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom editorial selection */
+::selection {
+  background-color: #ff4925;
+  color: #ffffff;
+}
+
+/* Typography Helpers */
+.font-anton {
+  font-family: 'Anton', sans-serif;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+/* Diagonal mask for hero photo echoing reference */
+.hero-diagonal-mask {
+  clip-path: polygon(0 8%, 100% 0%, 100% 92%, 0% 100%);
+}
+
+@media (max-width: 768px) {
+  .hero-diagonal-mask {
+    clip-path: polygon(0 4%, 100% 0%, 100% 96%, 0% 100%);
+  }
+}
+
+/* Smooth custom dark scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+::-webkit-scrollbar-thumb {
+  background: #262626;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ff4925;
+}
+
+/* Accessibility: Reduced motion overrides */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
