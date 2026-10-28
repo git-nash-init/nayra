@@ -3,65 +3,150 @@
 @tailwind utilities;
 
 :root {
-  --color-canvas-base: #0a0a0a;
-  --color-canvas-surface: #141414;
-  --color-canvas-elevated: #1a1a1a;
-  --color-accent: #ff4925;
-  --color-accent-hover: #bd2608;
-  --color-text-primary: #ffffff;
-  --color-text-secondary: #cacaca;
-  --color-text-muted: #8f8f8f;
-  --color-text-dim: #555555;
-  --color-border-hairline: rgba(255, 255, 255, 0.08);
+  --color-canvas-base: #0a0806;
+  --color-canvas-surface: #12100c;
+  --color-canvas-elevated: #1a1611;
+  --color-accent: #c9a96e;
+  --color-accent-light: #e6d3a3;
+  --color-accent-deep: #8a6a32;
+  --color-text-primary: #f3ece0;
+  --color-text-secondary: #d8cfc0;
+  --color-text-muted: #b9b0a2;
+  --color-text-dim: #8a8174;
+  --color-border-hairline: rgba(201, 169, 110, 0.22);
+  --ease-couture: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 body {
   background-color: var(--color-canvas-base);
   color: var(--color-text-primary);
-  font-family: 'Geist', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  letter-spacing: -0.015em;
+  font-family: 'Jost', 'Futura PT', Futura, sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.01em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom editorial selection */
 ::selection {
-  background-color: #ff4925;
-  color: #ffffff;
+  background-color: var(--color-accent);
+  color: var(--color-canvas-base);
 }
 
-/* Typography Helpers */
-.font-anton {
-  font-family: 'Anton', sans-serif;
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
-}
+@layer components {
+  /* Display serif. Kept as .font-anton alias so nothing silently falls back. */
+  .font-display,
+  .font-anton {
+    font-family: 'Bodoni Moda', Didot, 'Bodoni 72', serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
 
-/* Diagonal mask for hero photo echoing reference */
-.hero-diagonal-mask {
-  clip-path: polygon(0 8%, 100% 0%, 100% 92%, 0% 100%);
-}
+  /* Tracked small caps label used instead of monospace eyebrows */
+  .eyebrow {
+    font-family: 'Jost', 'Futura PT', Futura, sans-serif;
+    font-size: 0.6875rem;
+    font-weight: 400;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    line-height: 1.6;
+  }
 
-@media (max-width: 768px) {
-  .hero-diagonal-mask {
-    clip-path: polygon(0 4%, 100% 0%, 100% 96%, 0% 100%);
+  /* Thin gold rule */
+  .rule-gold {
+    height: 1px;
+    background-color: var(--color-border-hairline);
+  }
+
+  /* Passe-partout: a champagne hairline inset inside a photograph */
+  .frame-inset {
+    position: relative;
+  }
+  .frame-inset::after {
+    content: '';
+    position: absolute;
+    inset: 12px;
+    border: 1px solid rgba(230, 211, 163, 0.45);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  /* Gold Didone drop cap */
+  .drop-cap::first-letter {
+    font-family: 'Bodoni Moda', Didot, serif;
+    float: left;
+    font-size: 4.6em;
+    line-height: 0.82;
+    padding: 0.06em 0.12em 0 0;
+    color: var(--color-accent);
+  }
+
+  /* Text link: underline appears, nothing moves */
+  .link-couture {
+    text-decoration: underline;
+    text-decoration-color: var(--color-border-hairline);
+    text-underline-offset: 6px;
+    text-decoration-thickness: 1px;
+    transition: color 200ms ease, text-decoration-color 200ms ease;
+  }
+  .link-couture:hover {
+    color: var(--color-accent-light);
+    text-decoration-color: var(--color-accent);
+  }
+
+  /* Skeleton loader with a slow champagne sheen */
+  .skeleton {
+    background-color: var(--color-canvas-elevated);
+    background-image: linear-gradient(
+      100deg,
+      transparent 30%,
+      rgba(201, 169, 110, 0.07) 50%,
+      transparent 70%
+    );
+    background-size: 60% 100%;
+    background-repeat: no-repeat;
+    animation: sheen 2.8s ease-in-out infinite;
+  }
+
+  /* Scroll reveal: fades and rises once */
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 900ms var(--ease-couture), transform 900ms var(--ease-couture);
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
   }
 }
 
-/* Smooth custom dark scrollbars */
+@keyframes sheen {
+  0% { background-position: -150% 0; }
+  100% { background-position: 250% 0; }
+}
+
+/* Static film grain across the whole site */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0a0a0a;
+  background: #0a0806;
 }
 ::-webkit-scrollbar-thumb {
-  background: #262626;
-  border-radius: 9999px;
+  background: #3a3125;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #ff4925;
+  background: #c9a96e;
 }
 
 /* Accessibility: Reduced motion overrides */
@@ -73,5 +158,9 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
   }
 }

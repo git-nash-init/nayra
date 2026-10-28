@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Plus } from 'lucide-react';
 
 export interface AccordionItem {
   id: string | number;
@@ -37,52 +36,45 @@ export const Accordion: React.FC<AccordionProps> = ({
   };
 
   return (
-    <div className="w-full divide-y divide-white/10 border-t border-b border-white/10">
+    <div className="w-full divide-y divide-hairline border-t border-b border-hairline">
       {items.map((item) => {
         const isOpen = openIds.has(item.id);
         return (
-          <div key={item.id} className="transition-colors group hover:bg-white/[0.015]">
+          <div key={item.id} className="group">
             <button
               type="button"
               onClick={() => toggleItem(item.id)}
-              className="w-full py-6 sm:py-8 flex items-center justify-between text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-lg"
+              className="w-full py-7 sm:py-9 flex items-baseline justify-between text-left focus:outline-none focus-visible:ring-1 focus-visible:ring-accent"
               aria-expanded={isOpen}
             >
-              <div className="flex items-center gap-4 sm:gap-8 pr-4">
-                <span className="font-mono text-base sm:text-lg text-muted">
+              <div className="flex items-baseline gap-5 sm:gap-10 pr-4">
+                <span className="font-display italic text-lg sm:text-xl text-accent w-8 sm:w-12 shrink-0">
                   {item.index}
-                  <span className="text-accent font-bold">.</span>
                 </span>
                 <div>
-                  <h3 className="text-lg sm:text-2xl font-semibold tracking-tight text-white group-hover:text-muted-light transition-colors">
+                  <h3 className="font-display text-xl sm:text-3xl text-white group-hover:text-accent-light transition-colors duration-200 leading-snug">
                     {item.title}
                   </h3>
                   {item.subtitle && (
-                    <p className="text-xs sm:text-sm text-muted mt-1 font-normal">
-                      {item.subtitle}
-                    </p>
+                    <p className="eyebrow text-muted-dark mt-2">{item.subtitle}</p>
                   )}
                 </div>
               </div>
 
-              <div
-                className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full border flex items-center justify-center shrink-0 transition-all duration-300 ${
-                  isOpen
-                    ? 'border-accent bg-accent text-black rotate-45'
-                    : 'border-white/15 text-accent group-hover:border-accent group-hover:bg-accent/10'
-                }`}
+              <span
+                className="font-display text-2xl sm:text-3xl text-accent shrink-0 w-6 text-center leading-none"
+                aria-hidden="true"
               >
-                <Plus className="w-4 h-4 sm:w-5 sm:h-5 transition-transform" />
-              </div>
+                {isOpen ? '−' : '+'}
+              </span>
             </button>
 
-            {/* Accordion Content */}
             <div
-              className={`grid transition-all duration-300 ease-in-out ${
-                isOpen ? 'grid-rows-[1fr] opacity-100 pb-6 sm:pb-8' : 'grid-rows-[0fr] opacity-0 overflow-hidden'
+              className={`grid transition-all duration-500 ease-couture ${
+                isOpen ? 'grid-rows-[1fr] opacity-100 pb-8 sm:pb-10' : 'grid-rows-[0fr] opacity-0 overflow-hidden'
               }`}
             >
-              <div className="overflow-hidden pl-10 sm:pl-16 pr-4 text-muted text-sm sm:text-base leading-relaxed">
+              <div className="overflow-hidden pl-[3.25rem] sm:pl-[5.5rem] pr-4 text-muted text-[15px] sm:text-base leading-[1.85] max-w-3xl">
                 {item.content}
               </div>
             </div>

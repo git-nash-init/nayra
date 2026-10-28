@@ -1,77 +1,58 @@
 import React from 'react';
 import { FORMATTED_PRICE } from '../../config/site';
+import { Reveal } from '../ui/Reveal';
+import { toRoman } from '../../lib/roman';
+
+const CONTENTS = [
+  {
+    title: 'Direct conversation',
+    desc: 'Replies in real time, spontaneous voice notes and personal conversation on Telegram.',
+  },
+  {
+    title: 'The photograph vault',
+    desc: 'Uncompressed, high-resolution sets from private shoots that never reach a public feed.',
+  },
+  {
+    title: 'Daily films',
+    desc: 'Behind-the-scenes clips, travel diaries and personal greetings in full portrait format.',
+  },
+  {
+    title: 'A private room',
+    desc: 'A verified, respectful space without spam, entered through a single-use invitation.',
+  },
+];
 
 export const ValuePillars: React.FC = () => {
-  const pillars = [
-    {
-      num: '01',
-      suffix: '+',
-      title: 'Direct 1-on-1 Chat',
-      desc: 'Real-time text replies, spontaneous voice notes, and direct personal conversations on Telegram.',
-    },
-    {
-      num: '02',
-      suffix: '+',
-      title: 'HD Photo Vault',
-      desc: 'Uncompressed, raw, high-resolution photo sets from private shoots that never hit social algorithms.',
-    },
-    {
-      num: '03',
-      suffix: '+',
-      title: 'Daily Video Reels',
-      desc: 'Behind-the-scenes clips, daily travel vlogs, and intimate greetings in full mobile portrait format.',
-    },
-    {
-      num: '04',
-      suffix: '+',
-      title: 'Private VIP Space',
-      desc: 'A verified, respectful, spam-free sanctuary with single-use invite links and immediate access delivery.',
-    },
-  ];
-
   return (
-    <section id="pillars" className="py-20 sm:py-32 bg-canvas-base border-b border-hairline relative overflow-hidden">
+    <section id="pillars" className="py-24 sm:py-36 bg-canvas-base border-b border-hairline">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-8">
-        {/* Header (Echoing reference "NUMBERS DON'T LIE" layout) */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-16 sm:mb-24">
-          <div>
-            <span className="text-xs font-mono uppercase tracking-widest text-muted block mb-2">
-              (MEMBERSHIP VALUE)
-            </span>
-            <h2 className="text-5xl sm:text-7xl lg:text-8xl font-anton tracking-tight text-white uppercase leading-none">
-              WHAT YOU RECEIVE
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+          {/* Contents-page heading */}
+          <div className="lg:col-span-4 lg:sticky lg:top-32 self-start">
+            <p className="eyebrow text-muted">In this edition</p>
+            <h2 className="font-display text-5xl sm:text-6xl leading-[1.02] tracking-tighter text-white mt-6">
+              What you <em className="text-accent-light">receive</em>
             </h2>
-          </div>
-
-          <div className="max-w-md">
-            <p className="text-base sm:text-lg text-muted-light font-normal leading-relaxed">
-              Transparent, genuine access. Everything you unlock with your one-time <span className="text-white font-semibold">{FORMATTED_PRICE}</span> private membership pass.
+            <p className="text-muted mt-6 leading-[1.85] max-w-sm">
+              Everything included in your one-time <span className="text-white">{FORMATTED_PRICE}</span> membership.
             </p>
           </div>
-        </div>
 
-        {/* 4 Pillars Grid with Hairline Dividers */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-0 lg:divide-x divide-white/10">
-          {pillars.map((pillar) => (
-            <div
-              key={pillar.num}
-              className="flex flex-col justify-between space-y-4 lg:px-8 first:lg:pl-0 last:lg:pr-0"
-            >
-              <div>
-                <div className="flex items-baseline font-anton text-6xl sm:text-7xl text-white tracking-tight leading-none mb-3">
-                  <span>{pillar.num}</span>
-                  <span className="text-accent text-5xl sm:text-6xl ml-0.5">{pillar.suffix}</span>
-                </div>
-                <h3 className="text-xl sm:text-2xl font-semibold text-white tracking-tight">
-                  {pillar.title}
-                </h3>
-              </div>
-
-              <p className="text-sm text-muted leading-relaxed font-normal">
-                {pillar.desc}
-              </p>
-            </div>
-          ))}
+          {/* Index list */}
+          <ol className="lg:col-span-8 border-t border-hairline">
+            {CONTENTS.map((item, i) => (
+              <Reveal
+                as="li"
+                key={item.title}
+                delay={i * 100}
+                className="grid grid-cols-[3rem_1fr] sm:grid-cols-[5rem_1fr_1.2fr] gap-x-4 sm:gap-x-8 gap-y-2 py-9 sm:py-11 border-b border-hairline items-baseline"
+              >
+                <span className="font-display italic text-accent text-2xl sm:text-3xl">{toRoman(i + 1)}</span>
+                <h3 className="font-display text-2xl sm:text-3xl text-white leading-snug">{item.title}</h3>
+                <p className="col-start-2 sm:col-start-3 text-muted leading-[1.8] text-[15px]">{item.desc}</p>
+              </Reveal>
+            ))}
+          </ol>
         </div>
       </div>
     </section>

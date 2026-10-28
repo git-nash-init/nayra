@@ -1,69 +1,51 @@
 import React from 'react';
-import { Sparkles, MessageCircle, Heart, Lock } from 'lucide-react';
 import { BRAND_NAME } from '../../config/site';
+import { Reveal } from '../ui/Reveal';
+
+const VALUES = ['Authentic', 'Real-time', 'Private', 'Close circle'];
 
 export const AboutStatement: React.FC = () => {
   return (
-    <section id="about" className="py-20 sm:py-32 bg-canvas-base border-b border-hairline relative">
+    <section id="about" className="py-24 sm:py-36 bg-canvas-base border-b border-hairline">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16">
-          {/* Left Eyebrow Label */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
           <div className="lg:col-span-3">
-            <span className="text-xs font-mono uppercase tracking-widest text-muted block mb-2">
-              (ABOUT {BRAND_NAME})
-            </span>
-            <div className="w-12 h-0.5 bg-accent mt-3" />
+            <p className="font-display italic text-accent text-2xl">I.</p>
+            <p className="eyebrow text-muted mt-2">About {BRAND_NAME}</p>
           </div>
 
-          {/* Right Statement & Narrative */}
-          <div className="lg:col-span-9 space-y-8">
-            <h2 className="text-2xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-white leading-[1.2]">
-              I believe in <span className="text-accent">genuine moments</span>, unfiltered beauty, and having conversations that actually feel personal.
-            </h2>
+          <div className="lg:col-span-9 space-y-12">
+            <Reveal>
+              <h2 className="font-display text-3xl sm:text-5xl lg:text-[3.6rem] leading-[1.15] tracking-tighter text-white max-w-4xl">
+                I believe in <em className="text-accent-light">genuine</em> moments, unfiltered beauty, and
+                conversations that feel personal.
+              </h2>
+            </Reveal>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-muted text-base sm:text-lg leading-relaxed font-normal pt-4">
-              <p>
-                Public social feeds are crowded with algorithms, ads, and noise. I wanted a private sanctuary where I can share my everyday life without filters—from cozy morning thoughts and travel adventures to high-fashion shoots and casual late-night voice notes.
-              </p>
-              <p>
-                My private Telegram channel is where I talk with people directly. I read your messages, reply personally, and share the behind-the-scenes moments that never make it anywhere else.
-              </p>
-            </div>
-
-            {/* Quick Core Values Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 pt-8 border-t border-white/5">
-              <div className="space-y-1.5">
-                <div className="flex items-center gap-2 text-accent">
-                  <Sparkles className="w-4 h-4" />
-                  <span className="text-xs font-mono uppercase tracking-wider text-white font-medium">Authentic</span>
-                </div>
-                <p className="text-xs text-muted">100% natural and unedited perspectives.</p>
+            <Reveal delay={120}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-10 text-muted text-base sm:text-[17px] leading-[1.9]">
+                <p className="drop-cap">
+                  Public feeds are crowded with algorithms, advertising and noise. I wanted a private place to
+                  share my everyday life as it is, from slow mornings and travel to fashion shoots and late
+                  voice notes.
+                </p>
+                <p>
+                  My Telegram channel is where I talk with people directly. I read your messages, reply
+                  personally, and share the moments behind the camera that never appear anywhere else.
+                </p>
               </div>
+            </Reveal>
 
-              <div className="space-y-1.5">
-                <div className="flex items-center gap-2 text-accent">
-                  <MessageCircle className="w-4 h-4" />
-                  <span className="text-xs font-mono uppercase tracking-wider text-white font-medium">Real-Time</span>
-                </div>
-                <p className="text-xs text-muted">Direct chats and voice replies.</p>
-              </div>
-
-              <div className="space-y-1.5">
-                <div className="flex items-center gap-2 text-accent">
-                  <Lock className="w-4 h-4" />
-                  <span className="text-xs font-mono uppercase tracking-wider text-white font-medium">Private</span>
-                </div>
-                <p className="text-xs text-muted">Discreet, ad-free, respectful space.</p>
-              </div>
-
-              <div className="space-y-1.5">
-                <div className="flex items-center gap-2 text-accent">
-                  <Heart className="w-4 h-4" />
-                  <span className="text-xs font-mono uppercase tracking-wider text-white font-medium">Close Circle</span>
-                </div>
-                <p className="text-xs text-muted">Curated community of genuine supporters.</p>
-              </div>
-            </div>
+            <Reveal delay={200}>
+              <ul className="flex flex-wrap items-center gap-x-6 gap-y-3 pt-10 border-t border-hairline eyebrow text-accent-light">
+                {VALUES.map((value, i) => (
+                  <li key={value} className="flex items-center gap-x-6">
+                    {i > 0 && <span className="text-muted-dark" aria-hidden="true">·</span>}
+                    <span>{value}</span>
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
           </div>
         </div>
       </div>

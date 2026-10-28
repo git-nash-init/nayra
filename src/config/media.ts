@@ -34,7 +34,7 @@ export const FEATURED_VIDEOS: MediaItem[] = [
   {
     id: 'video-reel-01',
     title: 'Daily Unfiltered Moments',
-    category: 'Video Reel',
+    category: 'Daily diary',
     src: '/media/videos/nayra-video-reel-01.mp4',
     poster: '/media/images/nayra-video-poster-01.jpg',
     type: 'video',
@@ -44,18 +44,18 @@ export const FEATURED_VIDEOS: MediaItem[] = [
   {
     id: 'video-reel-02',
     title: 'Private Stories & Moods',
-    category: 'Exclusive Clip',
+    category: 'Private stories',
     src: '/media/videos/nayra-video-reel-02.mp4',
     poster: '/media/images/nayra-video-poster-02.jpg',
     type: 'video',
     aspectRatio: '9/16',
     hasAudio: true,
-    description: 'Exclusive voice & sound reel — real-time greetings, stories, and candid moments. Tap unmute to listen!',
+    description: 'A film with sound: greetings, stories and candid moments. Turn the sound on to listen.',
   },
   {
     id: 'video-reel-03',
     title: 'Candid Studio & Moods',
-    category: 'Behind The Scenes',
+    category: 'Behind the scenes',
     src: '/media/videos/nayra-video-reel-03.mp4',
     poster: '/media/images/nayra-preview-03-sage-elegance.jpg',
     type: 'video',
@@ -325,7 +325,7 @@ export const GALLERY_ITEMS: MediaItem[] = [
     src: '/media/images/nayra-extra-27.jpg',
     type: 'image',
     aspectRatio: '4/5',
-    description: 'Haldi ceremony energy — yellow suit, mehndi, marigold decor.',
+    description: 'Haldi ceremony in a yellow suit, with mehndi and marigold decor.',
   },
   {
     id: 'gallery-30',
@@ -343,7 +343,7 @@ export const GALLERY_ITEMS: MediaItem[] = [
     src: '/media/images/nayra-extra-29.jpg',
     type: 'image',
     aspectRatio: '4/5',
-    description: 'Raw, unposed cafe selfie in a white tee — just being real.',
+    description: 'An unposed cafe selfie in a white tee.',
   },
 ];
 
@@ -372,9 +372,9 @@ export interface GalleryTileCollection {
 export const HOMEPAGE_GALLERY_TILES: GalleryTileCollection[] = [
   {
     id: 'tile-festive',
-    themeTitle: 'FESTIVE & CEREMONY',
+    themeTitle: 'Festive & ceremony',
     category: 'Festive',
-    tag: '01 / CELEBRATION',
+    tag: 'Celebration',
     images: [
       GALLERY_ITEMS[1],  // Festive Pink Grace
       GALLERY_ITEMS[11], // Festive Bangles
@@ -387,9 +387,9 @@ export const HOMEPAGE_GALLERY_TILES: GalleryTileCollection[] = [
   },
   {
     id: 'tile-traditional',
-    themeTitle: 'TRADITIONAL & HERITAGE',
+    themeTitle: 'Traditional & heritage',
     category: 'Traditional',
-    tag: '02 / HERITAGE',
+    tag: 'Heritage',
     images: [
       GALLERY_ITEMS[0],  // Golden Hour Jewels
       GALLERY_ITEMS[3],  // Dark Floral Portrait
@@ -400,9 +400,9 @@ export const HOMEPAGE_GALLERY_TILES: GalleryTileCollection[] = [
   },
   {
     id: 'tile-outdoor',
-    themeTitle: 'GOLDEN HOUR & ROOFTOP',
+    themeTitle: 'Golden hour & rooftop',
     category: 'Outdoor',
-    tag: '03 / GOLDEN HOUR',
+    tag: 'Golden hour',
     images: [
       GALLERY_ITEMS[2],  // Sage Elegance
       GALLERY_ITEMS[10], // Rooftop Dusk
@@ -414,9 +414,9 @@ export const HOMEPAGE_GALLERY_TILES: GalleryTileCollection[] = [
   },
   {
     id: 'tile-travel',
-    themeTitle: 'TRAVEL & UNFILTERED',
+    themeTitle: 'Travel & unfiltered',
     category: 'Travel',
-    tag: '04 / UNFILTERED',
+    tag: 'Unfiltered',
     images: [
       GALLERY_ITEMS[4],  // Mountain Escape
       GALLERY_ITEMS[8],  // Waterfall Journey

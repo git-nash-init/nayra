@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ArrowUpRight, ShieldCheck } from 'lucide-react';
-import { BRAND_NAME, NAVIGATION_LINKS, SITE_METADATA } from '../../config/site';
+import { BRAND_NAME, FORMATTED_PRICE, NAVIGATION_LINKS } from '../../config/site';
 import { Button } from '../ui/Button';
+import { toRoman } from '../../lib/roman';
 
 interface NavbarProps {
   onNavigateCheckout?: () => void;
@@ -43,49 +43,33 @@ export const Navbar: React.FC<NavbarProps> = ({
   return (
     <>
       <header
-        className={`fixed top-0 inset-x-0 z-40 transition-all duration-300 ${
-          isScrolled
-            ? 'bg-canvas-base/90 backdrop-blur-xl border-b border-hairline py-3.5 shadow-2xl'
-            : 'bg-gradient-to-b from-canvas-base via-canvas-base/60 to-transparent py-5 sm:py-6'
+        className={`fixed top-0 inset-x-0 z-40 transition-colors duration-300 ${
+          isScrolled || isMobileMenuOpen
+            ? 'bg-canvas-base border-b border-hairline py-4'
+            : 'bg-transparent border-b border-transparent py-6 sm:py-7'
         }`}
       >
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-8 flex items-center justify-between">
-          {/* Left: Wordmark & Status indicator */}
-          <div className="flex items-center gap-4 sm:gap-6">
-            <a
-              href="/"
-              onClick={(e) => {
-                e.preventDefault();
-                if (onNavigateHome) onNavigateHome();
-                else window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-              className="text-2xl sm:text-3xl font-anton tracking-tight text-white hover:text-accent transition-colors flex items-center gap-1 focus:outline-none"
-            >
-              <span>{BRAND_NAME}</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-accent mb-3.5" />
-            </a>
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-8 flex items-center justify-between gap-6">
+          <a
+            href="/"
+            onClick={(e) => {
+              e.preventDefault();
+              if (onNavigateHome) onNavigateHome();
+              else window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            className="font-display text-2xl sm:text-[1.75rem] tracking-masthead text-white hover:text-accent-light transition-colors duration-200 focus:outline-none focus-visible:text-accent"
+          >
+            {BRAND_NAME}
+          </a>
 
-            {/* Live Indicator pill (echoing reference top metadata) */}
-            <div className="hidden lg:flex items-center gap-2 pl-4 border-l border-white/10 text-[11px] font-mono uppercase tracking-wider text-muted">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-              </span>
-              <span className="text-muted-light">{SITE_METADATA.badgeText}</span>
-              <span className="text-white/20">•</span>
-              <span className="text-muted">{SITE_METADATA.statusText}</span>
-            </div>
-          </div>
-
-          {/* Desktop Navigation Links */}
           {!isSubpage && (
-            <nav className="hidden md:flex items-center gap-6 lg:gap-8">
+            <nav className="hidden md:flex items-center gap-7 lg:gap-10">
               {NAVIGATION_LINKS.map((link) => (
                 <button
                   key={link.href}
                   type="button"
                   onClick={() => handleLinkClick(link.href)}
-                  className="text-xs uppercase tracking-widest text-muted hover:text-white transition-colors cursor-pointer font-medium focus:outline-none focus-visible:text-accent"
+                  className="eyebrow text-muted-light hover:text-accent-light transition-colors duration-200 focus:outline-none focus-visible:text-accent"
                 >
                   {link.label}
                 </button>
@@ -93,77 +77,60 @@ export const Navbar: React.FC<NavbarProps> = ({
             </nav>
           )}
 
-          {/* Right Action: CTA & Mobile Hamburger */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
             <Button
               variant="primary"
               size="sm"
               onClick={onNavigateCheckout}
-              icon={<ArrowUpRight className="w-3.5 h-3.5" />}
               className="hidden sm:inline-flex"
             >
-              Chat with me
+              Join
             </Button>
 
-            {/* Mobile Menu Toggle Button */}
             <button
               type="button"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2 rounded-full border border-white/15 bg-white/5 text-white hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+              className="md:hidden eyebrow text-white py-2 focus:outline-none focus-visible:text-accent"
               aria-label={isMobileMenuOpen ? 'Close menu' : 'Open navigation menu'}
               aria-expanded={isMobileMenuOpen}
             >
-              {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {isMobileMenuOpen ? 'Close' : 'Menu'}
             </button>
           </div>
         </div>
       </header>
 
-      {/* Mobile Menu Drawer Overlay */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-30 bg-black/95 backdrop-blur-2xl md:hidden pt-24 px-6 flex flex-col justify-between pb-8 animate-in fade-in duration-200">
-          <div className="flex flex-col gap-6">
-            <div className="flex items-center gap-2 pb-4 border-b border-white/10 text-xs font-mono uppercase tracking-wider text-muted">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-white font-medium">{SITE_METADATA.badgeText}</span>
-              <span className="text-muted ml-auto">₹499 VIP</span>
-            </div>
-
-            <nav className="flex flex-col gap-4">
-              {NAVIGATION_LINKS.map((link) => (
-                <button
-                  key={link.href}
-                  type="button"
-                  onClick={() => handleLinkClick(link.href)}
-                  className="text-left text-2xl font-anton tracking-wide text-white hover:text-accent transition-colors py-2"
-                >
+        <div className="fixed inset-0 z-30 bg-canvas-base md:hidden pt-28 px-6 flex flex-col justify-between pb-10">
+          <nav className="flex flex-col">
+            {NAVIGATION_LINKS.map((link, i) => (
+              <button
+                key={link.href}
+                type="button"
+                onClick={() => handleLinkClick(link.href)}
+                className="text-left py-4 border-b border-hairline flex items-baseline gap-5 group"
+              >
+                <span className="font-display italic text-accent text-sm w-8">{toRoman(i + 1)}</span>
+                <span className="font-display text-3xl text-white group-hover:text-accent-light transition-colors duration-200">
                   {link.label}
-                </button>
-              ))}
-            </nav>
-          </div>
+                </span>
+              </button>
+            ))}
+          </nav>
 
-          <div className="flex flex-col gap-4 pt-6 border-t border-white/10">
+          <div className="flex flex-col gap-5 pt-8">
             <Button
-              variant="primary"
+              variant="solid"
               size="lg"
               onClick={() => {
                 setIsMobileMenuOpen(false);
-                if (onNavigateCheckout) onNavigateCheckout();
+                onNavigateCheckout?.();
               }}
-              icon={<ArrowUpRight className="w-4 h-4" />}
               className="w-full"
             >
-              Chat with me — ₹499
+              Join the private channel · {FORMATTED_PRICE}
             </Button>
-
-            <div className="flex items-center justify-between text-xs text-muted pt-2">
-              <span className="flex items-center gap-1.5">
-                <ShieldCheck className="w-3.5 h-3.5 text-accent" />
-                18+ Adult Access
-              </span>
-              <span>Telegram Verified</span>
-            </div>
+            <p className="eyebrow text-muted text-center">Strictly 18+ · Private Telegram</p>
           </div>
         </div>
       )}

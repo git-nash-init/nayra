@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { MediaItem } from '../../config/media';
+import { MediaFrame } from './MediaFrame';
 
 interface LightboxProps {
   items: MediaItem[];
@@ -10,6 +10,9 @@ interface LightboxProps {
   onNext: () => void;
   onPrev: () => void;
 }
+
+const controlClass =
+  'eyebrow text-muted-light hover:text-accent-light transition-colors duration-200 px-3 py-3 focus:outline-none focus-visible:ring-1 focus-visible:ring-accent';
 
 export const Lightbox: React.FC<LightboxProps> = ({
   items,
@@ -43,77 +46,75 @@ export const Lightbox: React.FC<LightboxProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-xl p-4 sm:p-8 animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex flex-col bg-canvas-base"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
       aria-label="Image lightbox"
     >
-      {/* Top Bar: Counter & Close */}
-      <div className="absolute top-4 inset-x-4 sm:inset-x-8 flex items-center justify-between z-10 pointer-events-none">
-        <div className="px-3 py-1 rounded-full bg-canvas-surface/80 border border-hairline text-xs font-mono text-muted tracking-wider">
-          {currentIndex + 1} / {items.length}
-        </div>
-
-        <button
-          type="button"
-          onClick={onClose}
-          className="pointer-events-auto p-2.5 rounded-full bg-canvas-surface/80 hover:bg-accent hover:text-black border border-hairline text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-          aria-label="Close modal"
-        >
-          <X className="w-5 h-5" />
+      {/* Top bar: counter and close */}
+      <div className="flex items-center justify-between px-4 sm:px-8 py-4 border-b border-hairline">
+        <span className="font-display italic text-accent text-lg">
+          {currentIndex + 1}
+          <span className="text-muted-dark"> / {items.length}</span>
+        </span>
+        <button type="button" onClick={onClose} className={controlClass} aria-label="Close lightbox">
+          Close
         </button>
       </div>
 
-      {/* Navigation Buttons */}
-      <button
-        type="button"
-        onClick={(e) => {
-          e.stopPropagation();
-          onPrev();
-        }}
-        className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 p-3 rounded-full bg-black/60 hover:bg-accent hover:text-black border border-white/10 text-white transition-all z-10 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-        aria-label="Previous image"
-      >
-        <ChevronLeft className="w-6 h-6" />
-      </button>
+      <div className="flex-1 min-h-0 flex items-center justify-center gap-2 sm:gap-6 px-2 sm:px-8 py-6">
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            onPrev();
+          }}
+          className={`${controlClass} hidden sm:block`}
+          aria-label="Previous image"
+        >
+          Prev
+        </button>
 
-      <button
-        type="button"
-        onClick={(e) => {
-          e.stopPropagation();
-          onNext();
-        }}
-        className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 p-3 rounded-full bg-black/60 hover:bg-accent hover:text-black border border-white/10 text-white transition-all z-10 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-        aria-label="Next image"
-      >
-        <ChevronRight className="w-6 h-6" />
-      </button>
+        <figure className="h-full max-w-4xl flex flex-col items-center justify-center" onClick={(e) => e.stopPropagation()}>
+          <MediaFrame
+            key={currentItem.id}
+            src={currentItem.src}
+            alt={currentItem.title}
+            loading="eager"
+            className="max-h-[70vh] min-h-[40vh] min-w-[260px] flex items-center justify-center"
+            imgClassName="max-h-[70vh] w-auto h-auto max-w-full object-contain"
+          />
+          <figcaption className="mt-5 text-center max-w-xl">
+            <span className="eyebrow text-accent">{currentItem.category}</span>
+            <p className="font-display italic text-lg sm:text-xl text-white mt-1">{currentItem.title}</p>
+            {currentItem.description && (
+              <p className="text-sm text-muted mt-1">{currentItem.description}</p>
+            )}
+          </figcaption>
+        </figure>
 
-      {/* Main Image Container */}
-      <div
-        className="relative max-w-5xl max-h-[82vh] flex flex-col items-center justify-center"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <img
-          src={currentItem.src}
-          alt={currentItem.title}
-          className="max-h-[75vh] w-auto max-w-full rounded-lg object-contain shadow-2xl border border-white/10"
-        />
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            onNext();
+          }}
+          className={`${controlClass} hidden sm:block`}
+          aria-label="Next image"
+        >
+          Next
+        </button>
+      </div>
 
-        {/* Caption */}
-        <div className="mt-4 text-center max-w-xl">
-          <div className="flex items-center justify-center gap-2">
-            <span className="text-[11px] font-semibold uppercase tracking-widest text-accent font-mono">
-              {currentItem.category}
-            </span>
-            <span className="text-white/30">•</span>
-            <h4 className="text-sm sm:text-base font-medium text-white">{currentItem.title}</h4>
-          </div>
-          {currentItem.description && (
-            <p className="text-xs text-muted mt-1">{currentItem.description}</p>
-          )}
-        </div>
+      {/* Mobile prev/next */}
+      <div className="sm:hidden flex items-center justify-between px-4 pb-6" onClick={(e) => e.stopPropagation()}>
+        <button type="button" onClick={onPrev} className={controlClass} aria-label="Previous image">
+          Prev
+        </button>
+        <button type="button" onClick={onNext} className={controlClass} aria-label="Next image">
+          Next
+        </button>
       </div>
     </div>
   );

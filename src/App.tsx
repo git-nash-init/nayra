@@ -59,6 +59,7 @@ export function App() {
 
   return (
     <div className="bg-canvas-base min-h-screen text-white">
+      <div className="grain" aria-hidden="true" />
       {currentPage === 'home' && (
         <HomePage
           onNavigateCheckout={() => navigateTo('checkout')}

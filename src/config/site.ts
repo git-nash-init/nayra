@@ -9,13 +9,13 @@ export const CURRENCY_SYMBOL = '₹';
 export const FORMATTED_PRICE = `${CURRENCY_SYMBOL}${SUBSCRIPTION_PRICE_INR}`;
 
 export const SITE_METADATA = {
-  title: 'NAYRA — Unfiltered Moments & Private Telegram Access',
+  title: 'NAYRA | The Private Edition',
   tagline: 'Unfiltered moments, personal stories, and private daily conversations.',
   shortBio: 'Creator & Model. Sharing raw behind-the-scenes moments, daily photosets, and private real-time chats.',
-  heroHeadline: 'UNFILTERED MOMENTS. REAL CONNECTION.',
+  heroHeadline: 'Unfiltered moments, real connection.',
   heroSubheadline: 'Private photo & video previews, raw daily stories, and real-time 1-on-1 chat on Telegram.',
-  badgeText: 'ONLINE ON TELEGRAM',
-  statusText: 'ACCEPTING NEW MEMBERS',
+  badgeText: 'On Telegram',
+  statusText: 'Now accepting members',
   ageNotice: '18+ Adults Only',
   supportEmail: 'support@nayra.vip',
   telegramHandle: '@nayra_official',
@@ -29,20 +29,20 @@ export const SITE_METADATA = {
 
 export const NAVIGATION_LINKS = [
   { label: 'About', href: '#about' },
-  { label: 'Reels', href: '#videos' },
+  { label: 'Films', href: '#videos' },
   { label: 'Moments', href: '#moments' },
-  { label: 'What You Get', href: '#perks' },
-  { label: 'Access', href: '#pricing' },
-  { label: 'FAQ', href: '#faq' },
+  { label: 'How it works', href: '#perks' },
+  { label: 'Membership', href: '#pricing' },
+  { label: 'Questions', href: '#faq' },
 ];
 
 export const MEMBERSHIP_INCLUSIONS = [
-  'Full uninterrupted access to private Telegram channel',
-  'Exclusive HD photo vault (100% uncompressed releases)',
-  'Exclusive behind-the-scenes video reels and daily video updates',
-  'Real-time 1-on-1 personal replies and voice notes directly with Nayra',
-  'Ad-free, spam-free, respectful private space',
-  'Instant invite link delivery upon verification',
+  'Full, uninterrupted access to the private Telegram channel',
+  'The photograph vault, every set uncompressed',
+  'Behind-the-scenes films and daily video diaries',
+  'Personal replies and voice notes from Nayra herself',
+  'A respectful private room, free of ads and spam',
+  'Your invitation, delivered the moment payment clears',
 ];
 
 export const ACCESS_STEPS = [
@@ -94,7 +94,7 @@ export const FAQS = [
     answer: 'If an amount is debited but your link is delayed, our support team can verify the transaction reference and manually deliver your channel invite within hours at support@nayra.vip.',
   },
   {
-    question: 'Can I chat with Nayra directly?',
-    answer: 'Yes! Nayra personally reads and replies to messages, answers questions, and shares voice notes in the private channel.',
+    question: 'Can I talk with Nayra directly?',
+    answer: 'Yes. Nayra reads and replies to messages herself, answers questions and shares voice notes in the private channel.',
   },
 ];
